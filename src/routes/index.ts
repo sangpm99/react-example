@@ -1,33 +1,41 @@
-import { JSX, LazyExoticComponent, lazy } from "react";
+import { lazy } from "react";
+import type { AppRoute } from "@/types/navigation";
 
-export interface Navigation {
-  path: string;
-  title: string;
-  to?: string;
-  icon?: string;
-  action?: string;
-  subject?: string;
-  component?: LazyExoticComponent<() => JSX.Element>;
-  children?: Navigation[];
-}
-
-const navigations: Navigation[] = [
+export const appRoutes: AppRoute[] = [
   {
+    name: "Home",
     path: "/",
-    title: "Home",
     component: lazy(() => import("@/pages")),
   },
   {
+    name: "States",
     path: "/states",
-    title: "States",
     children: [
       {
-        path: "/state1",
-        title: "State 1",
-        component: lazy(() => import("@/pages/states/state1")),
+        name: "State One",
+        path: "state1",
+        component: lazy(() => import("@/pages/states/State1.tsx")),
+      },
+      {
+        name: "State Two",
+        path: "state2",
+        component: lazy(() => import("@/pages/states/State2")),
+      },
+      {
+        name: "State Three",
+        path: "state3",
+        component: lazy(() => import("@/pages/states/State3")),
+      },
+      {
+        name: "State Four",
+        path: "state4",
+        component: lazy(() => import("@/pages/states/State4")),
+      },
+      {
+        name: "State Five",
+        path: "state5",
+        component: lazy(() => import("@/pages/states/State5")),
       },
     ],
   },
 ];
-
-export default navigations;
