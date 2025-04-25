@@ -11,21 +11,43 @@ import { useState, useEffect } from "react";
 function State5() {
   const [seconds, setSeconds] = useState<number>(0);
   const [isRunning, setRunning] = useState<boolean>(false);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
-  const onToggle = () => {
+  const onToggleTimer = () => {
+    if (isRunning) {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    } else {
+      const id = setInterval(() => {
+        setSeconds((prevState) => prevState + 1);
+      }, 1000);
+      setIntervalId(id);
+    }
     setRunning(!isRunning);
   };
 
-  const onReset = () => {
+  const onResetTimer = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+    setSeconds(0);
     setRunning(false);
   };
 
+  useEffect(() => {
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [intervalId]);
+
   return (
     <div>
-      {seconds}
-      <br />
-      <button onClick={onToggle}>{isRunning ? "Pause" : "Start"}</button>
-      <button onClick={onReset}>Reset</button>
+      <h2>{seconds}</h2>
+      <button onClick={onToggleTimer}>{isRunning ? "Pause" : "Start"}</button>
+      <button onClick={onResetTimer}>Reset</button>
     </div>
   );
 }
