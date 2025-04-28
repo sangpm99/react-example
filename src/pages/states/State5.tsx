@@ -6,39 +6,36 @@
 // Gợi ý:
 //   State cho seconds (number) và isRunning (boolean).
 //   Dùng useEffect để xử lý interval (nhớ cleanup).
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function State5() {
   const [seconds, setSeconds] = useState<number>(0);
   const [isRunning, setRunning] = useState<boolean>(false);
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+  const intervalId = useRef<NodeJS.Timeout | null>(null);
+  // Khong luu bien khong lien quan render vao useState
 
   const onToggleTimer = () => {
     if (isRunning) {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
+      if (intervalId.current) clearInterval(intervalId.current);
     } else {
-      const id = setInterval(() => {
+      intervalId.current = setInterval(() => {
         setSeconds((prevState) => prevState + 1);
       }, 1000);
-      setIntervalId(id);
     }
     setRunning(!isRunning);
   };
 
   const onResetTimer = () => {
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
+    if (intervalId.current) clearInterval(intervalId.current);
     setSeconds(0);
     setRunning(false);
   };
 
   useEffect(() => {
     return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
+      // return dinh nghia mot ham cleanup
+      if (intervalId.current) {
+        clearInterval(intervalId.current);
       }
     };
   }, [intervalId]);
