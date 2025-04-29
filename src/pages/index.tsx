@@ -1,24 +1,16 @@
-import { useState, useMemo } from "react";
+import { appRoutes } from "@/routes";
+import { Link } from "react-router-dom";
 
 function Index() {
-  const [numbers, setNumbers] = useState([1, 2, 3]);
-  const [count, setCount] = useState(0);
-
-  // Tính tổng numbers với useMemo
-  const total = useMemo(() => {
-    console.log("Calculating sum...");
-    return numbers.reduce((sum, num) => sum + num, 0);
-  }, [numbers]); // Chỉ tính lại khi numbers thay đổi
-
   return (
     <div>
-      <h2>Total: {total}</h2>
-      <button onClick={() => setCount(count + 1)}>
-        Increase Count: {count}
-      </button>
-      <button onClick={() => setNumbers([...numbers, numbers.length + 1])}>
-        Add Number
-      </button>
+      <ul>
+        {appRoutes.map((route, index) => (
+          <li key={index}>
+            <Link to={route.path}>{route.name}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

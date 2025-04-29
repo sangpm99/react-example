@@ -11,16 +11,22 @@ import { useState } from "react";
 
 function useToggle(value: boolean = false) {
   const [state, setState] = useState(value);
-  const toggleDarkMode = () => {
+  const toggle = () => {
     setState((prevState) => !prevState);
   };
-  return [state, toggleDarkMode];
+  return [state, toggle, setState] as const;
 }
 
 function Three() {
-  const [isDarkMode, toggleDarkMode] = useToggle(false);
+  const [isOn, toggle, setOn] = useToggle(false);
 
-  return <button onClick={toggleDarkMode}>{isDarkMode ? "ON" : "OFF"}</button>;
+  return (
+    <div>
+      <button onClick={toggle}>{isOn ? "ON" : "OFF"}</button>
+      <button onClick={() => setOn(true)}>Set On</button>
+      <button onClick={() => setOn(false)}>Set Off</button>
+    </div>
+  );
 }
 
 export default Three;
