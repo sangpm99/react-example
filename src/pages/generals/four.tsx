@@ -1,12 +1,12 @@
-// Bài 4: Search Filter với useMemo (Khó)
-// Mục tiêu: Tối ưu hiệu năng với useMemo để tránh tính toán lại không cần thiết.
-//   Đề bài:
-//   Tạo một component SearchFilter có:
-//   Một input để nhập từ khóa tìm kiếm.
-//   Một danh sách tên (ví dụ: ["An", "Bình", "Hà", "Minh", "Ngọc"]).
-// Hiển thị danh sách tên đã được lọc theo từ khóa (không phân biệt hoa thường).
-// Yêu cầu:
-//   Dùng useMemo để chỉ lọc lại danh sách khi từ khóa thay đổi, không lọc mỗi lần re-render.
+// Bài 3: Kéo thả phần tử (Drag & Drop)
+// Mục tiêu: Xây dựng component có thể kéo thả (drag and drop) bằng mouse.
+//   Yêu cầu:
+//
+//   Theo dõi vị trí chuột để di chuyển phần tử.
+//
+//   Khi thả (drop), phần tử giữ nguyên vị trí mới.
+//
+//   Sử dụng useRef để lưu trữ vị trí DOM và useEffect để đăng ký sự kiện.
 
 function Four() {
   return <div></div>;

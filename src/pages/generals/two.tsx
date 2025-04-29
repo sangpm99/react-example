@@ -1,15 +1,35 @@
-// Mục tiêu: Làm quen với useEffect để xử lý side effect (ví dụ: call API, lưu dữ liệu vào localStorage).
-// Đề bài:
-//   Tạo một component TodoList có:
-//   Một input để nhập công việc mới.
-//   Một nút "Thêm" để thêm công việc vào danh sách.
-//   Danh sách các công việc đã thêm (hiển thị dạng bullet list).
-// Yêu cầu:
-//   Khi trang được tải lại, danh sách công việc vẫn được giữ nguyên (dùng localStorage).
-// Khi thêm/xóa công việc, cập nhật lại localStorage.
+// 🔹 Bài 1: Custom Hook "usePrevious"
+// Mục tiêu: Viết một custom hook usePrevious để lưu và trả về giá trị trước đó của một state/prop.
+//   Yêu cầu:
+//   Hook nhận vào một giá trị (có thể là số, chuỗi, object...).
+// Trả về giá trị của lần render trước đó.
+import { useState, useEffect, useRef } from "react";
+
+function usePrevious<T>(value: T): T | undefined {
+  const previousValue = useRef<T>(value);
+
+  useEffect(() => {
+    previousValue.current = value;
+  }, [value]);
+
+  return previousValue.current;
+}
 
 function Two() {
-  return <div></div>;
+  const [count, setCount] = useState(0);
+  const prevCount = usePrevious(count);
+
+  const onIncrease = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <p>Previous count: {prevCount}</p>
+      <p>Count: {count}</p>
+      <button onClick={onIncrease}>Increase</button>
+    </div>
+  );
 }
 
 export default Two;

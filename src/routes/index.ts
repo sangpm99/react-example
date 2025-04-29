@@ -114,6 +114,11 @@ export const appRoutes: AppRoute[] = [
         path: "five",
         component: lazy(() => import("@/pages/generals/five")),
       },
+      {
+        name: "Six",
+        path: "six",
+        component: lazy(() => import("@/pages/generals/six")),
+      },
     ],
   },
 ];
